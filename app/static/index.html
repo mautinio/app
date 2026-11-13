@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keitaro Wrapper</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">Keitaro<span>wrapper</span></div>
+  <nav>
+    <button class="tab active" data-tab="create">Создать кампанию</button>
+    <button class="tab" data-tab="edit">Редактор офферов</button>
+  </nav>
+  <span id="mock-badge" class="badge" hidden>демо-режим: фейковый Keitaro</span>
+</header>
+
+<main>
+  <!-- ============ Создаватор ============ -->
+  <section id="tab-create" class="panel">
+    <div class="card narrow">
+      <h2>New campaign</h2>
+      <form id="create-form" autocomplete="off">
+        <label>Name<input name="name" required placeholder="имя кампании"></label>
+        <label>Geo<input name="geo" required placeholder="MX, AU, RO"></label>
+        <label>Offer
+          <div class="ac">
+            <input id="create-offer" placeholder="поиск по ID или названию оффера" required>
+            <ul class="ac-list" hidden></ul>
+          </div>
+        </label>
+        <details>
+          <summary>Домен, группа, источник</summary>
+          <label>Домен<select name="domain_id"></select></label>
+          <label>Группа<select name="group_id"></select></label>
+          <label>Источник<select name="traffic_source_id"></select></label>
+        </details>
+        <button type="submit" class="primary wide">Create</button>
+      </form>
+      <div id="create-result"></div>
+    </div>
+
+    <div class="card">
+      <h3>Созданные кампании</h3>
+      <table class="grid" id="created-table">
+        <thead><tr><th>ID</th><th>Название</th><th>Гео</th><th>URL</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ Редактор ============ -->
+  <section id="tab-edit" class="panel" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <label class="inline grow">Кампания
+          <select id="campaign-select"><option value="">— выберите кампанию —</option></select>
+        </label>
+        <div class="ac grow">
+          <input id="kt-search" placeholder="Загрузить другую кампанию из Keitaro: ID, название, alias">
+          <ul class="ac-list" hidden></ul>
+        </div>
+      </div>
+      <div class="toolbar" style="margin-top:10px">
+        <button id="fetch-btn" disabled>⬇ Fetch streams from KT</button>
+        <a id="view-kt" class="btn" target="_blank" hidden>View in KT ↗</a>
+        <label class="inline" style="margin-left:auto">с <input type="date" id="date-from"></label>
+        <label class="inline">по <input type="date" id="date-to"></label>
+        <button id="refresh" title="Обновить статистику">⟳</button>
+      </div>
+    </div>
+    <div id="editor"></div>
+  </section>
+</main>
+
+<div id="toast" hidden></div>
+<script type="module" src="/static/js/main.js"></script>
+</body>
+</html>
